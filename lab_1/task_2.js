@@ -1,14 +1,13 @@
 function filterImages(filePaths) {
-  const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp']; // Допустимые расширения изображений
+  const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp'];
 
-  // Функция для проверки, содержит ли строка кириллические символы
   function hasCyrillic(path) {
-    for (let i = 0; i < path.length; i++) {
-      let charCode = path.charCodeAt(i);
+    path.forEach((el) => {
+      const charCode = path.charCodeAt(el);
       if (charCode >= 0x0410 && charCode <= 0x044F) { // Кириллица (А-Я, а-я)
         return true;
       }
-    }
+    })
     return false;
   }
 
