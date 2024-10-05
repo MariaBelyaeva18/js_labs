@@ -26,9 +26,7 @@ function filterImages(filePaths) {
     const pathParts = path.split('/');
     const folderBeforeFile = pathParts[pathParts.length - 2];
 
-    if (folderBeforeFile !== 'img') return false;
-
-    return true;
+    return folderBeforeFile === 'img';
   });
 }
 

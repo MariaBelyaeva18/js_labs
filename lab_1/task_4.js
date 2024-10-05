@@ -1,34 +1,31 @@
 class Ladder {
   constructor(birthday) {
     this.birthday = new Date(birthday);
+    this.today = new Date();
   }
 
   getCurrentDate() {
-    const today = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    return today.toLocaleDateString('ru-RU', options);
+    return this.today.toLocaleDateString('ru-RU', options);
   }
 
   getCurrentDayOfWeek() {
-    const today = new Date();
     const options = { weekday: 'long' };
-    return today.toLocaleDateString('ru-RU', options);
+    return this.today.toLocaleDateString('ru-RU', options);
   }
 
   getDaysToNewYear() {
-    const today = new Date();
-    const nextNewYear = new Date(today.getFullYear() + 1, 0, 1);
-    const diff = nextNewYear.getTime() - today.getTime();
+    const nextNewYear = new Date(this.today.getFullYear() + 1, 0, 1);
+    const diff = nextNewYear.getTime() - this.today.getTime();
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
   }
 
   getDaysToBirthday() {
-    const today = new Date();
-    const nextBirthday = new Date(today.getFullYear(), this.birthday.getMonth(), this.birthday.getDate());
-    if (nextBirthday < today) {
-      nextBirthday.setFullYear(today.getFullYear() + 1);
+    const nextBirthday = new Date(this.today.getFullYear(), this.birthday.getMonth(), this.birthday.getDate());
+    if (nextBirthday < this.today) {
+      nextBirthday.setFullYear(this.today.getFullYear() + 1);
     }
-    const diff = nextBirthday.getTime() - today.getTime();
+    const diff = nextBirthday.getTime() - this.today.getTime();
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
   }
 
@@ -43,12 +40,11 @@ class Ladder {
   }
 }
 
-// Пример использования
-const birthday = new Date("2004-10-01"); // Ваш день рождения
+const birthday = new Date('2004-10-01');
 const ladder = new Ladder(birthday);
 
-console.log("Текущая дата:", ladder.getCurrentDate());
-console.log("Текущий день недели:", ladder.getCurrentDayOfWeek());
-console.log("Количество дней до нового года:", ladder.getDaysToNewYear());
-console.log("Количество дней до дня рождения:", ladder.getDaysToBirthday());
-console.log("Следующий високосный год:", ladder.getNextLeapYear());
+console.log('Текущая дата:', ladder.getCurrentDate());
+console.log('Текущий день недели:', ladder.getCurrentDayOfWeek());
+console.log('Количество дней до нового года:', ladder.getDaysToNewYear());
+console.log('Количество дней до дня рождения:', ladder.getDaysToBirthday());
+console.log('Следующий високосный год:', ladder.getNextLeapYear());
