@@ -1,4 +1,5 @@
 function generateRandomString(length) {
+  // список допустимых символов
   const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz';
   const lowerRusCaseLetters = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
   const upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -6,6 +7,7 @@ function generateRandomString(length) {
   const numbers = '0123456789';
   const specialCharacters = '!@#$%^&*()_+-=[]{}|;:\'",.<>?/\\';
 
+  // проверка вводимой длины
   if (length < 6) {
     throw new Error('Длина должна быть не менее 6 для включения всех требуемых символов.');
   }
@@ -17,10 +19,12 @@ function generateRandomString(length) {
   const characters = [lowerCaseLetters, lowerRusCaseLetters, upperCaseLetters, upperRusCaseLetters, numbers, specialCharacters];
   const allCharacters = characters.join('');
 
+  // генерируем первые 6 символов
   characters.forEach((el) => {
     result.push(el[Math.floor(Math.random() * el.length)]);
   })
 
+  // генерируем новые символы и проверяем, что они повторились не более 3 раз
   for (let i = 6; i < length; i++) {
     let char = '';
     do {
@@ -37,11 +41,14 @@ function generateRandomString(length) {
     }
   }
 
+  // добавляем разделитель после каждого 4 символа
   for (let i = 4; i < result.length; i += 5) {
     result.splice(i, 0, ' ');
   }
 
+  // вывод результата
   console.log(result.join(''));
 }
 
+// вызов функции
 generateRandomString(100);

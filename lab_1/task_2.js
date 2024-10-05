@@ -1,6 +1,8 @@
 function filterImages(filePaths) {
+  // расширения файлов, которые являются изображениями
   const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp'];
 
+  // проверка наличия кирилицы в пути к файлу
   function hasCyrillic(path) {
     let hasCyrillic = false;
 
@@ -8,6 +10,7 @@ function filterImages(filePaths) {
       const charCode = char.charCodeAt(0);
       if (charCode >= 0x0410 && charCode <= 0x044F) { // Кириллица (А-Я, а-я)
         hasCyrillic = true;
+        // нашли символ кирилицы - прерываем перебор
         return;
       }
     });
@@ -15,14 +18,19 @@ function filterImages(filePaths) {
     return hasCyrillic;
   }
 
+  // возвращаем отфильтрованный массив
   return filePaths.filter(path => {
+    // если есть кирилица
     if (hasCyrillic(path)) return false;
 
+    // если расширение файла - не изображение
     const hasImageExtension = imageExtensions.some(ext => path.endsWith(ext));
     if (!hasImageExtension) return false;
 
+    // если нет символа '/', значит не является полным путем к файлу
     if (!path.includes('/')) return false;
 
+    // если все условия соблюдены, проверяем, что файл лежит в папке img
     const pathParts = path.split('/');
     const folderBeforeFile = pathParts[pathParts.length - 2];
 
@@ -30,6 +38,7 @@ function filterImages(filePaths) {
   });
 }
 
+// примеры путей
 const filePaths = [
   '/home/user/img/file.jpg',
   '/var/data/img/photo.png',
@@ -43,5 +52,5 @@ const filePaths = [
   '/tmp/img/snapshot.webp'
 ];
 
-const validImagePaths = filterImages(filePaths);
-console.log(validImagePaths);
+// вызов функции
+console.log(filterImages(filePaths));
