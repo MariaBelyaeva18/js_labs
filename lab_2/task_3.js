@@ -20,14 +20,8 @@ const result = {};
 for (const event of events) {
     const year = parseInt(event.date.split('-')[0]); // Год
     const month = parseInt(event.date.split('-')[1]); // Месяц
-
-    if (!result[year]) {
-        result[year] = {};
-    }
-
-    if (!result[year][month]) {
-        result[year][month] = [];
-    }
+    if (!result[year]) result[year] = {};
+    if (!result[year][month]) result[year][month] = [];
 
     result[year][month].push(event.event);
 }

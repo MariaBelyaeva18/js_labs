@@ -3,7 +3,6 @@ class ImageFilter {
         this.maxSize = 2000;
         this.allowedFormats = ["jpg", "png", "svg"];
     }
-
     filterImages(images) {
         return images.filter(image => this.checkImage(image));
     }
@@ -12,17 +11,13 @@ class ImageFilter {
         try {
             // Получаем размер изображения
             const { width, height } = image;
-
             // Проверяем размер
             if (width > this.maxSize || height > this.maxSize) {
                 return false;
             }
-
             // Проверяем формат
             const format = image.type.toLowerCase();
             return this.allowedFormats.includes(format);
-
-
         } catch (error) {
             console.error(`Ошибка при проверке изображения: ${error}`);
             return false;
