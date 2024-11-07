@@ -17,13 +17,13 @@ const events = [
 const result = {};
 
 // Перебираем все события
-for (const event of events) {
+events.forEach((event) => {
     const year = parseInt(event.date.split('-')[0]); // Год
     const month = parseInt(event.date.split('-')[1]); // Месяц
     if (!result[year]) result[year] = {};
     if (!result[year][month]) result[year][month] = [];
 
     result[year][month].push(event.event);
-}
+})
 
 console.log(result);
